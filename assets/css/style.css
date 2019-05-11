@@ -1,0 +1,49 @@
+
+body {
+    background: url(../grassbackground3.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 1000px;
+}
+
+a, 
+li {
+    color: black;
+}
+
+#brand {
+  font-size: 2.8rem;
+}
+
+header {
+    margin-bottom: 4vw;
+}
+
+
+#container1,
+#container2,
+#container3 {
+    width: 85%;
+}
+
+
+#sideContent {
+    background-color: lightcyan;
+    min-height: 700px;
+}
+
+
+#youtubeContent {
+    background-color: lightgoldenrodyellow;
+    min-height: 340px;
+}
+
+#articleContent {
+    background-color: lavender;
+    min-height: 340px;
+}
+
+p {
+    margin-left: 1vw;
+}
+
