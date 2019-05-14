@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Cool Soccer Fan Central</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script><!-- Compiled and minified JavaScript -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"><!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!--Import Google Icon Font-->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
- 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
 </head>
 <body>
   <!-- navbar -->
@@ -37,64 +34,101 @@
             </ul>
           </div>
         </nav>
-      </header>        
+      </header>  
 
+  <!-- main container for Materialize row and column structure -->
   <div class="container" id="container2">
         <div class="row">
+
+            <!-- left side content area -->
             <div class="col s12 m5 l5">
                 <div class="z-depth-4" id="sideContent">
-                            <h5>Info Area</h5>
-                            <p>demo parag</p>
-                            <p>demo parag</p>
-                            <p>demo parag</p>
-                            <p>demo parag</p>
-                            <p>demo parag</p>
-                            <p>demo parag</p>
+
                 </div>
             </div>
 
+            <!-- right side content area -->
             <div class="col s12 m7 l7" id="mainContent">
-                <div class="z-depth-4" id="youtubeContent">
-                        <h5>youtube section area</h5>
-                        <img src="assets/1058-4608x3072.jpg" alt="soccer field" class="responsive-img materialboxed"/>
+
+            <!-- right side upper div for video display -->
+                <div class="z-depth-4 materialboxed" id="youtubeContent">
+                        <h6>Videos:<span class="clickHere">Click here to zoom in/out&nbsp;&nbsp;</span></h6>
+                        <div class="slider">
+                            <ul class="slides">
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                            </ul>
+                        </div>
                 </div>
-                <div class="z-depth-4" id="articleContent">
-                        <h5>Newsreel</h5>
-                        <p>demo parag</p>
-                        <p>demo parag</p>                
+
+            <!-- right side lower div for news article display -->
+                <div class="z-depth-4 materialboxed" id="articleContent">
+                    <h6>Newsreel:<span class="clickHere">Click here to zoom in/out&nbsp;&nbsp;</span></h6>
+                  <div id="articleContentDiv">
+                    
+                  </div>
                 </div>
             </div>
         </div>
   </div>
 <footer class="page-footer grey lighten-3">
         <div class="container" id="container3">
+            <div class="row">
+                <div class="col l2 s2">
+                  <img src="assets/images/soccer-ball-clip-art-sports-cleanclipart.png" alt="soccer ball" class="materialboxed" id="soccer-ball">
+                </div>
+
                 <div class="row">
-                  <div class="col l6 s12">
+                  <div class="col l5 s8 push-s2">
                     <h5 class="grey-text text-darken-3">About Us</h5>
-                    <p class="grey-text text-darken-3">Some stuff about us Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at lacus congue.</p>
+                    <p class="grey-text text-darken-3">We are "Group Cool" of Cohort 014 of the Full-Stack Web Development Boot Camp at the University of Minnesota.</p>
                   </div>
-                  <div class="col l4 s12">
+                  <div class="col l5 s12">
                     <h5 class="grey-text text-darken-3">Connect</h5>
                     <ul>
-                      <li><a class="grey-text text-darken-3" href="#">link1</a></li>
-                      <li><a class="grey-text text-darken-3" href="#">link2</a></li>
-                      <li><a class="grey-text text-darken-3" href="#">link3</a></li>
-                      <li><a class="grey-text text-darken-3" href="#">link4</a></li>
-                      <li><a class="grey-text text-darken-3" href="#">link5</a></li>
+                      <li><a class="grey-text text-darken-3" href="https://zekkxx.github.io/Portoflio/">Kieran Anthony</a></li>
+                      <li><a class="grey-text text-darken-3" href="#">Chris Cannaday</a></li>
+                      <li><a class="grey-text text-darken-3" href="https://ljelias.github.io/portfolio/">Laura Elias</a></li>
+                      <li><a class="grey-text text-darken-3" href="#">Sabrina Thong</a></li>
+                      <li><a class="grey-text text-darken-3" href="#">Ivan Wijetunge</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
+            </div>
               <div class="footer-copyright grey darken-4">
                 <div class="container center-align">&copy; 2019 all of us</div>
               </div>
 </footer>
 
 <script>
-        $(document).ready(function(){
-          $('.sidenav').sidenav();
-          $('.materialboxed').materialbox();
-        });
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+    $('.materialboxed').materialbox();
+    /*var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems);
+    instances.pause();*/
+    $('.slider').slider();
+    $('.slider').slider("pause");
+  });
 
 </script>
 </body>

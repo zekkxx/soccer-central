@@ -1,6 +1,6 @@
 
 body {
-    background: url(../grassbackground3.jpg);
+    background: url(../images/grassbackground3.jpg);
     background-size: cover;
     background-position: center;
     min-height: 1000px;
@@ -26,6 +26,11 @@ header {
     width: 85%;
 }
 
+h6 {
+    padding-left: 1.6vw;
+    padding-top: .8vw;
+    font-size: 1.9vw;
+}
 
 #sideContent {
     background-color: lightcyan;
@@ -34,7 +39,7 @@ header {
 
 
 #youtubeContent {
-    background-color: lightgoldenrodyellow;
+    background-color: burlywood;
     min-height: 340px;
 }
 
@@ -43,7 +48,20 @@ header {
     min-height: 340px;
 }
 
+.clickHere {
+    font-size: 1vw;
+    float: right;
+}
+
 p {
     margin-left: 1vw;
 }
 
+#soccer-ball {
+    max-height: 150px;
+    width: auto;
+}
+
+#footer {
+    width: 100%;
+}
