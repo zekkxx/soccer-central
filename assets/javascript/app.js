@@ -1,8 +1,8 @@
-$(document).ready(function () {
-
-    var googleURL= "https://newsapi.org/v2/everything?q=soccer+teams&apiKey=fb3aa28457e54aeb86cd1dc81bc99f6f"
+function populateArticles(searchTerm) {
+    console.log(searchTerm)
+    var googleURL= "https://newsapi.org/v2/everything?q="+ searchTerm + "&apiKey=fb3aa28457e54aeb86cd1dc81bc99f6f"
         console.log(googleURL)
-   
+
     $.ajax({
         url: googleURL,
         method: "GET"
@@ -34,4 +34,4 @@ $(document).ready(function () {
       
      
     )    
-})
+}
