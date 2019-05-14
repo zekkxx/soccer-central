@@ -16,11 +16,10 @@ var selectedPlayerID;
 var returnedAPIFootballContent
 
 function newLeagueSelected(event){
-    console.log(event);
-    //selectedLeagueID = event.?
+    selectedLeagueID = event.target.value;
     populateTeams();
-    //populateYouTube(event.?.name);
-    //populateArticles(event.?.name);
+    //populateYouTube(event.target[event.target.selectedIndex].text);
+    populateArticles(event.target[event.target.selectedIndex].text);
 }
 
 function newTeamSelected(event){
@@ -39,7 +38,7 @@ function newPlayerSelected(event){
     //populateArticles(event.?.name);
 }
 
-function populateYouTube(term){
+function populateYouTube(searchTerm){
     console.log(searchTerm);
     //???
 }
@@ -50,18 +49,31 @@ function populateArticles(searchTerm){
 }
 
 function newSearch(){ //Create a start point for searching our database
-    //empty #sideContent
-    //create select
-    //make for loop to pull information from Leagues database
-        //create new option
-        //assign new option name + year
-        //assign new option value with leagueID
-        //append option to select
-    //give select uniqueID (#leagueSelect)
-    //append leagueSelect to #sideContent
-    //create teamSelectDiv and apply to #sideContent
-    //create playerSelectDiv and apply to #sideContent
-    //create playerInfoDiv and apply to #sideContent
+    $("#sideContent").empty();//empty #sideContent
+    //var selectDiv = $("<div>");
+    
+    var newSelect = $("<select>");//create select
+    database.ref().on("value", function(snapshot){
+        //console.log(snapshot.val().Leagues.length);
+        for(let i=0; i<snapshot.val().Leagues.length; i++){//make for loop to pull information from Leagues database
+            var newOption = $("<option>");//create new option
+            newOption.text(snapshot.val().Leagues[i].name + " - " + snapshot.val().Leagues[i].season);//assign new option name + year
+            newOption.attr("value", snapshot.val().Leagues[i].leagueID);//assign new option value with leagueID
+            newSelect.append(newOption);//append option to select
+            //console.log("appended Option");
+        }
+    });
+    newSelect.attr("id", "leagueSelect"); //give select uniqueID (#leagueSelect)
+    newSelect.attr("class", "browser-default");
+    //selectDiv.append(newSelect);
+    $("#sideContent").append(newSelect);//append leagueSelect to #sideContent
+    
+    var idArray = ["teamSelectDiv", "playerSelectDiv", "playerInfoDiv"]; //create different Div names
+    for(let i=0; i<idArray.length; i++){
+        let newDiv = $("<div>");
+        newDiv.attr("id", idArray[i]);
+        $("#sideContent").append(newDiv); //apply to #sideContent
+    }
 }
 
 function populateTeams(){ //Create new select for teams in given league
@@ -98,8 +110,12 @@ function populateInfo(){
 $(function(){
     firebase.initializeApp(firebaseConfig);
     database = firebase.database();
-    //newSearch();
-    //onchange of #leagueSelect: newLeagueSelected
+    $('.sidenav').sidenav();
+    $('.materialboxed').materialbox();
+    $('.slider').slider();
+    $('.slider').slider("pause");
+    newSearch();
+    $(document).on("change", "#leagueSelect", newLeagueSelected);//onchange of #leagueSelect: newLeagueSelected
     //onchange of #teamSelect: newTeamSelected
     //onchange of #playerSelect: newPlayerSelected
 });
