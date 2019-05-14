@@ -18,7 +18,7 @@ var returnedAPIFootballContent
 function newLeagueSelected(event){
     selectedLeagueID = event.target.value;
     populateTeams();
-    //populateYouTube(event.target[event.target.selectedIndex].text);
+    populateYouTube(event.target[event.target.selectedIndex].text);
     populateArticles(event.target[event.target.selectedIndex].text);
 }
 
@@ -39,13 +39,13 @@ function newPlayerSelected(event){
 }
 
  function populateYouTube(searchTerm) {
-  var API_KEY = "AIzaSyDHcMkWIi06ah4VlEbBCTCiGVSQjD9nH-s";
+  var API_KEY = "AIzaSyCBM3aFwX66OzVIcr7x7Pf-0n8xjD1BTI8";
   var part = "snippet"; //specifies a comma-separated list of one or more channel resource properties that the API response will include.
   var type = "video";
   var baseURL = "https://www.googleapis.com/youtube/v3/search"; //
   var queryURL = baseURL + "?" + "part=" + part + "&q=" + searchTerm + "&type=" + type + "&key=" + API_KEY;
   $.ajax({
-      url: queryURL, //---------------call to the youtube API------------------------------
+      url: queryURL,
       method: "GET"
   }).then(function (response) {
       console.log(response);
@@ -53,6 +53,7 @@ function newPlayerSelected(event){
 }
 
 function populateArticles(searchTerm) {
+    $("#articleContentDiv").empty();
     console.log(searchTerm)
     var googleURL= "https://newsapi.org/v2/everything?q="+ searchTerm + "&apiKey=fb3aa28457e54aeb86cd1dc81bc99f6f"
         console.log(googleURL)
@@ -61,33 +62,18 @@ function populateArticles(searchTerm) {
         url: googleURL,
         method: "GET"
     }).then(function(response) {
-        console.log(response)
-        $(document).on("click",function() {
-        for (let i = 0; i <response.articles.length;i++){
-            var articleDiv = $("<div>");        
-            var title = response.articles[i].title;
-            var url = response.articles[i].url;
-            var content = response.articles[i].content;
-            var articleInfo = $("<img class='article'>");
-            articleDiv.append(articleInfo);
-            $("#articleContent").append(articleDiv);
-            //making the title the link
-            $('<a href="'+url +'"></a>').appendTo($('#articleContent'));
+        //console.log(response)
+        for (let i = 0; i <response.articles.length && i<10;i++){
+            var articleContent = $("<p>");
             var a = $('<a>');
-            a.attr('href',url);
-            a.text(title);
-            $('#articleContent').append(a);
-            $('#articleContent').append('<br>');
-            $("#articleContent").append(content);
-            console.log(response.articles.length=10)
-            
-            }
-            })
-        
+            a.attr('href',response.articles[i].url);
+            a.text(response.articles[i].title);
+            articleContent.append(a);
+            articleContent.append("<br>");
+            articleContent.append(response.articles[i].content);
+            $("#articleContentDiv").append(articleContent);
         }
-      
-     
-    )    
+    });
 }
 
 function newSearch(){ //Create a start point for searching our database
