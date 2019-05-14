@@ -10,54 +10,77 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 var database;
-var selectedLeagueID;
-var selectedTeamID;
-var selectedPlayerID;
-var returnedAPIFootballContent
+var selectedLeagueIndex;
+var selectedTeamIndex;
+var selectedPlayer;
+var returnedAPIFootballContent;
 
 function newLeagueSelected(event){
-    selectedLeagueID = event.target.value;
-    populateTeams();
-    populateYouTube(event.target[event.target.selectedIndex].text);
-    populateArticles(event.target[event.target.selectedIndex].text);
+    //console.log(event.target.value);
+    if(event.target.selectedIndex != 0){
+        selectedLeagueIndex = event.target.selectedIndex - 1;
+        populateTeams();
+        populateYouTube(event.target[event.target.selectedIndex].text);
+        populateArticles(event.target[event.target.selectedIndex].text);
+    }
 }
 
 function newTeamSelected(event){
-    console.log(event);
-    //selectedTeamID = event.?
-    populatePlayers();
-    //populateYouTube(event.?.name);
-    //populateArticles(event.?.name);
+    //console.log(event.target.value);
+    if(event.target.selectedIndex != 0){
+        selectedTeamIndex = event.target.selectedIndex - 1;
+        populatePlayers();
+        populateYouTube(event.target[event.target.selectedIndex].text);
+        populateArticles(event.target[event.target.selectedIndex].text);
+    }
 }
 
 function newPlayerSelected(event){
-    console.log(event);
-    //selectedPlayerID = event.?
-    populateInfo();
-    //populateYouTube(event.?.name);
-    //populateArticles(event.?.name);
+    //console.log(event.target.value);
+    if(event.target.selectedIndex != 0){
+        selectedPlayerIndex = event.target.selectedIndex - 1;
+        populateInfo();
+        populateYouTube(event.target[event.target.selectedIndex].text);
+        populateArticles(event.target[event.target.selectedIndex].text);
+    }
 }
 
  function populateYouTube(searchTerm) {
-  var API_KEY = "AIzaSyCBM3aFwX66OzVIcr7x7Pf-0n8xjD1BTI8";
-  var part = "snippet"; //specifies a comma-separated list of one or more channel resource properties that the API response will include.
-  var type = "video";
-  var baseURL = "https://www.googleapis.com/youtube/v3/search"; //
-  var queryURL = baseURL + "?" + "part=" + part + "&q=" + searchTerm + "&type=" + type + "&key=" + API_KEY;
-  $.ajax({
-      url: queryURL,
-      method: "GET"
-  }).then(function (response) {
-      console.log(response);
-  })
+    $(".slider").empty();
+    var API_KEY = "AIzaSyCBM3aFwX66OzVIcr7x7Pf-0n8xjD1BTI8";
+    var part = "snippet"; //specifies a comma-separated list of one or more channel resource properties that the API response will include.
+    var type = "video";
+    var baseURL = "https://www.googleapis.com/youtube/v3/search"; //
+    var queryURL = baseURL + "?" + "part=" + part + "&q=" + searchTerm + "&type=" + type + "&key=" + API_KEY;
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        //console.log(response);
+        var sliderShow = $("<ul>");
+        sliderShow.attr("class", "slides");
+        for(let i=0; i<response.items.length; i++){
+            var newItem = $("<li>");
+            var newDiv = $("<div class='video-container'>");
+            var newIFrame = $("<iFrame width='853' height='480' frameborder='0' allowfullscreen>")
+            newIFrame.attr("src", "https://www.youtube.com/embed/"+response.items[i].id.videoId);
+            //console.log(response.items[i].id.videoId);
+            //console.log(newIFrame.attr("src"));
+            newDiv.append(newIFrame);
+            newItem.append(newDiv);
+            sliderShow.append(newItem);
+        }
+        $(".slider").append(sliderShow);
+        $('.slider').slider({interval:600000});
+    })
 }
 
 function populateArticles(searchTerm) {
     $("#articleContentDiv").empty();
-    console.log(searchTerm)
+    //console.log(searchTerm)
     var googleURL= "https://newsapi.org/v2/everything?q="+ searchTerm + "&apiKey=fb3aa28457e54aeb86cd1dc81bc99f6f"
-        console.log(googleURL)
-
+        //console.log(googleURL)
+    
     $.ajax({
         url: googleURL,
         method: "GET"
@@ -78,9 +101,13 @@ function populateArticles(searchTerm) {
 
 function newSearch(){ //Create a start point for searching our database
     $("#sideContent").empty();//empty #sideContent
-    //var selectDiv = $("<div>");
     
     var newSelect = $("<select>");//create select
+
+    var blankOption = $("<option>");
+    blankOption.text("--Choose a League--");
+    newSelect.append("blankOption");
+
     database.ref().on("value", function(snapshot){
         //console.log(snapshot.val().Leagues.length);
         for(let i=0; i<snapshot.val().Leagues.length; i++){//make for loop to pull information from Leagues database
@@ -93,7 +120,6 @@ function newSearch(){ //Create a start point for searching our database
     });
     newSelect.attr("id", "leagueSelect"); //give select uniqueID (#leagueSelect)
     newSelect.attr("class", "browser-default");
-    //selectDiv.append(newSelect);
     $("#sideContent").append(newSelect);//append leagueSelect to #sideContent
     
     var idArray = ["teamSelectDiv", "playerSelectDiv", "playerInfoDiv"]; //create different Div names
@@ -105,18 +131,42 @@ function newSearch(){ //Create a start point for searching our database
 }
 
 function populateTeams(){ //Create new select for teams in given league
-    //empty #teamSelect, #playerSelect, #playerInfo
-    //create select
-    //make for loop to pull information from Teams database
-        //create new option
-        //assign new option name
-        //assign new option value with teamID
-        //append option to select
-    //give select uniqueID (#teamSelect)
-    //append select to #teamSelectDiv
+    //console.log("Populate Teams Reached");
+    $("#teamSelectDiv").empty();//empty #teamSelect, #playerSelect, #playerInfo
+    $("#playerSelectDiv").empty();
+    $("#playerInfoDiv").empty();
+    var newSelect = $("<select>");//create select
+
+    var blankOption = $("<option>");
+    blankOption.text("--Choose a Team--");
+    newSelect.append("blankOption");
+
+    database.ref().on("value", function(snapshot){
+        //console.log(snapshot.val().Leagues[selectedLeagueIndex].teamIDs);
+        $("#teamSelectDiv").append("There are: " + snapshot.val().Leagues[selectedLeagueIndex].teamIDs.length + " teams in this league!");
+        for(let i=0; i<snapshot.val().Leagues[selectedLeagueIndex].teamIDs.length; i++){ //make for loop to pull information from Teams database
+            var teamsIndex = 0;
+            var newOption = $("<option>");//create new option
+            var newName = "";
+            while(newName == ""){
+                if(snapshot.val().Leagues[selectedLeagueIndex].teamIDs[i] == snapshot.val().Teams[teamsIndex].team_id){
+                    newName = snapshot.val().Teams[teamsIndex].name;
+                } else {
+                    teamsIndex++;
+                }
+            }
+            newOption.text(newName);//assign new option name
+            newOption.attr("value", snapshot.val().Teams[teamsIndex].team_id);//assign new option value with teamID
+            newSelect.append(newOption);//append option to select
+        }
+    })
+    newSelect.attr("id", "teamSelect");//give select uniqueID (#teamSelect)
+    newSelect.attr("class", "browser-default");
+    $("#teamSelectDiv").append(newSelect);//append select to #teamSelectDiv
 }
 
 function populatePlayers(){
+    //console.log("Populate Players Reached")
     //empty #playerSelect, #playerInfo
     //create select
     //AJAX API-Football and catch response in returnedAPIFootballContent
@@ -140,10 +190,8 @@ $(function(){
     database = firebase.database();
     $('.sidenav').sidenav();
     $('.materialboxed').materialbox();
-    $('.slider').slider();
-    $('.slider').slider("pause");
     newSearch();
     $(document).on("change", "#leagueSelect", newLeagueSelected);//onchange of #leagueSelect: newLeagueSelected
-    //onchange of #teamSelect: newTeamSelected
+    $(document).on("change", "#teamSelect", newTeamSelected);//onchange of #teamSelect: newTeamSelected
     //onchange of #playerSelect: newPlayerSelected
 });
