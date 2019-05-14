@@ -5,43 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Cool Soccer Fan Central</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="crossorigin="anonymous"></script>
-    <script src="assets/javascript/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script><!-- Compiled and minified JavaScript -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"><!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!--Import Google Icon Font [Used for Collapsable menu]-->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 </head>
 <body>
-    <div id="header">
+  <!-- navbar -->
+  <header>
+        <nav class="nav-wrapper white">
+          <div class="container" id="container1">
+            <a href="#" class="black-text" id="brand">Sportified!</a>
+            <a href="#" class="sidenav-trigger black-text" data-target="mobile-menu"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#" class="black-text" >Data/info</a></li>
+              <li><a href="#" class="black-text" >Videos</a></li>
+              <li><a href="#" class="black-text" >Newsreel</a></li>
+            </ul>
+        </nav>
+            <ul class="sidenav grey lighten-2" id="mobile-menu">
+              <li><a href="#" class="black-text" >Data/info</a></li>
+              <li><a href="#" class="black-text" >Videos</a></li>
+              <li><a href="#" class="black-text" >Newsreel</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>  
 
-    </div>
-    <div id="wrapper">
-        <div id="sideContent">
-            <select id="leagues">
-                <option value="league">League</option>
-                <option value="leagueName">Cup</option>
-                <option value="leagueName"> United</option>
-            </select>
-            <select id="teams">
-                <option value="team">Teams</option>
-                <option value="teamName">Manchester United</option>
-                <option value="teamName">Chelsea</option>
-            </select>
-            <select id="players">
-                <option value="player">Players</option>
-                <option value="playerName">Ronaldo</option>
-                <option value="playerName">Messi</option>
-            </select>
-        </div>
-        <div id="mainContent">
-            <div id="youtubeContent">
+  <!-- main container for Materialize row and column structure -->
+  <div class="container" id="container2">
+        <div class="row">
 
+            <!-- left side content area -->
+            <div class="col s12 m5 l5">
+                <div class="z-depth-4" id="sideContent">
+
+                </div>
             </div>
-            <div id="articleContent">
+
+            <!-- right side content area -->
+            <div class="col s12 m7 l7" id="mainContent">
+
+            <!-- right side upper div for video display -->
+                <div class="z-depth-4 materialboxed" id="youtubeContent">
+                        <h6>Videos:<span class="clickHere">Click here to zoom in/out&nbsp;&nbsp;</span></h6>
+                        <div class="slider">
+                            <ul class="slides">
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="video-container">
+                                  <iframe width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                              </li>
+                            </ul>
+                        </div>
+                </div>
+
+            <!-- right side lower div for news article display -->
+                <div class="z-depth-4 materialboxed" id="articleContent">
+                    <h6>Newsreel:<span class="clickHere">Click here to zoom in/out&nbsp;&nbsp;</span></h6>
+                    <div id="articleContentDiv">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+
+  <!--footer including general information-->
+<footer class="page-footer grey lighten-3">
+    <div class="container" id="container3">
+        <div class="row">
+            <div class="col l2 s2">
+                <img src="assets/images/soccer-ball-clip-art-sports-cleanclipart.png" alt="soccer ball" class="materialboxed" id="soccer-ball">
+            </div>
+            <div class="row">
+                <div class="col l5 s8 push-s2">
+                    <h5 class="grey-text text-darken-3">About Us</h5>
+                    <p class="grey-text text-darken-3">We are "Group Cool" of Cohort 014 of the Full-Stack Web Development Boot Camp at the University of Minnesota.</p>
+                </div>
+                <div class="col l5 s12">
+                    <h5 class="grey-text text-darken-3">Connect</h5>
+                    <ul>
+                        <li><a class="grey-text text-darken-3" href="https://zekkxx.github.io/Portoflio/">Kieran Anthony</a></li>
+                        <li><a class="grey-text text-darken-3" href="#">Chris Cannaday</a></li>
+                        <li><a class="grey-text text-darken-3" href="https://ljelias.github.io/portfolio/">Laura Elias</a></li>
+                        <li><a class="grey-text text-darken-3" href="#">Sabrina Thong</a></li>
+                        <li><a class="grey-text text-darken-3" href="#">Ivan Wijetunge</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div id="footer">
-
+    <div class="footer-copyright grey darken-4">
+        <div class="container center-align">&copy; 2019 all of us</div>
     </div>
+</footer>
 </body>
 </html>
