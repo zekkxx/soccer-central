@@ -18,25 +18,33 @@
 </head>
 <body>
   <!-- navbar -->
-  <header>
+    <header>
         <nav class="nav-wrapper white">
-          <div class="container" id="container1">
-            <a href="#" class="black-text" id="brand">Cool Soccer Fan Central</a>
-            <a href="#" class="sidenav-trigger black-text" data-target="mobile-menu"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="#" class="black-text" >Data/info</a></li>
-              <li><a href="#" class="black-text" >Videos</a></li>
-              <li><a href="#" class="black-text" >Newsreel</a></li>
-            </ul>
+            <div class="container" id="container1">
+                <a href="#" class="black-text" id="brand">Cool Soccer Fan Central</a>
+                <a href="#" class="sidenav-trigger black-text" data-target="mobile-menu"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#keyModal" class="black-text waves-effect waves-light btn modal-trigger" >Add Key</a></li>
+                </ul>
+            </nav>
+                <ul class="sidenav grey lighten-2" id="mobile-menu">
+                    <li><a href="#keyModal" class="black-text waves-effect waves-light btn modal-trigger" >Add Key</a></li>
+                </ul>
+            </div>
         </nav>
-            <ul class="sidenav grey lighten-2" id="mobile-menu">
-              <li><a href="#" class="black-text" >Data/info</a></li>
-              <li><a href="#" class="black-text" >Videos</a></li>
-              <li><a href="#" class="black-text" >Newsreel</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>  
+    </header>
+
+    <!-- Modal Structure -->
+    <div id="keyModal" class="modal">
+        <div class="modal-content">
+            <h4>For This Project:</h4>
+            <p>You will need to apply a key from API-Football. Please contact one of the developers for this key, and submit it in the input field below.</p>
+            <input type="text" id="apiFootballKeyInput">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="addKey modal-close waves-effect waves-green btn-flat">Submit</a>
+        </div>
+    </div>
 
   <!-- main container for Materialize row and column structure -->
   <div class="container" id="container2">
