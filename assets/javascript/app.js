@@ -177,7 +177,7 @@ function populatePlayers(){
     var blankOption = $("<option>");
     blankOption.text("--Choose a Player--"); //title card for Players
     newSelect.append(blankOption);
-    var key = "9887e715cdmshd22e37cc0ef550cp19788ajsn2f3c161cecff"; //AJAX API-Football and catch response in returnedAPIFootballContent
+    var key = ""; //AJAX API-Football and catch response in returnedAPIFootballContent
     $.ajax({ // API call to get the team members of a team. Takes team ID as parameter
         headers: { 'X-RapidAPI-Key': key }, 
         type: 'GET',
