@@ -62,7 +62,7 @@ function newPlayerSelected(event){ //when a new player is selected
         for(let i=0; i<response.items.length; i++){ //for all response items
             var newItem = $("<li>"); //make an item
             var newDiv = $("<div class='video-container'>"); //make a container
-            var newIFrame = $("<iFrame width='853' height='480' frameborder='0' allowfullscreen>") //make an iFrame
+            var newIFrame = $("<iFrame frameborder='0' allowfullscreen>") //make an iFrame
             newIFrame.attr("src", "https://www.youtube.com/embed/"+response.items[i].id.videoId); //and set it to the youtubelink
             //console.log(response.items[i].id.videoId);
             //console.log(newIFrame.attr("src"));
@@ -70,8 +70,9 @@ function newPlayerSelected(event){ //when a new player is selected
             newItem.append(newDiv);
             sliderShow.append(newItem);
         }
+        console.log($(".video-container"));
         $(".slider").append(sliderShow); //append the youtube catalog to slider
-        $('.slider').slider({interval:600000}); //set slider to rotate after 10 minutes
+        $('.slider').slider({interval:600000,height:$(".video-container").height}); //set slider to rotate after 10 minutes
     })
 }
 
