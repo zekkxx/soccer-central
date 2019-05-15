@@ -15,36 +15,36 @@ var selectedTeamIndex;
 var selectedTeamID;
 var selectedPlayerIndex;
 var returnedAPIFootballContent; //[{"player_id":882,"player_name":"David de Gea","team_id":33,"team_name":"Manchester United","number":1,"age":28,"position":"G","injured":"False","rating":"6.659459","captain":4,"shots":{"total":0,"on":0},"goals":{"total":0,"conceded":52,"assists":0},"passes":{"total":550,"accuracy":60},"tackles":{"total":0,"blocks":0,"interceptions":0},"duels":{"total":8,"won":6},"dribbles":{"attempts":0,"success":0},"fouls":{"drawn":4,"committed":1},"cards":{"yellow":1,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":37,"minutes_played":3330,"lineups":37},"substitutes":{"in":0,"out":0,"bench":0}},{"player_id":883,"player_name":"L. Grant","team_id":33,"team_name":"Manchester United","number":13,"age":36,"position":"G","injured":"False","rating":null,"captain":0,"shots":{"total":0,"on":0},"goals":{"total":0,"conceded":0,"assists":0},"passes":{"total":0,"accuracy":0},"tackles":{"total":0,"blocks":0,"interceptions":0},"duels":{"total":0,"won":0},"dribbles":{"attempts":0,"success":0},"fouls":{"drawn":0,"committed":0},"cards":{"yellow":0,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":0,"minutes_played":0,"lineups":0},"substitutes":{"in":0,"out":0,"bench":9}},{"player_id":884,"player_name":"S. Romero","team_id":33,"team_name":"Manchester United","number":22,"age":32,"position":"G","injured":"False","rating":"7.500000","captain":0,"shots":{"total":0,"on":0},"goals":{"total":0,"conceded":0,"assists":0},"passes":{"total":12,"accuracy":60},"tackles":{"total":0,"blocks":0,"interceptions":0},"duels":{"total":0,"won":0},"dribbles":{"attempts":0,"success":0},"fouls":{"drawn":0,"committed":0},"cards":{"yellow":0,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":0,"minutes_played":0,"lineups":0},"substitutes":{"in":0,"out":0,"bench":28}},{"player_id":885,"player_name":"E. Bailly","team_id":33,"team_name":"Manchester United","number":3,"age":25,"position":"D","injured":"False","rating":"6.710000","captain":0,"shots":{"total":3,"on":1},"goals":{"total":0,"conceded":0,"assists":0},"passes":{"total":263,"accuracy":65},"tackles":{"total":9,"blocks":4,"interceptions":13},"duels":{"total":50,"won":37},"dribbles":{"attempts":5,"success":4},"fouls":{"drawn":5,"committed":5},"cards":{"yellow":0,"yellowred":0,"red":1},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":12,"minutes_played":637,"lineups":8},"substitutes":{"in":4,"out":2,"bench":13}},{"player_id":886,"player_name":"Diogo Dalot","team_id":33,"team_name":"Manchester United","number":20,"age":20,"position":"D","injured":"False","rating":"6.846666","captain":0,"shots":{"total":13,"on":0},"goals":{"total":0,"conceded":0,"assists":2},"passes":{"total":269,"accuracy":66},"tackles":{"total":10,"blocks":2,"interceptions":10},"duels":{"total":80,"won":53},"dribbles":{"attempts":14,"success":9},"fouls":{"drawn":2,"committed":10},"cards":{"yellow":3,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":15,"minutes_played":941,"lineups":11},"substitutes":{"in":4,"out":5,"bench":10}},{"player_id":887,"player_name":"M. Darmian","team_id":33,"team_name":"Manchester United","number":36,"age":29,"position":"D","injured":"False","rating":"6.740000","captain":0,"shots":{"total":1,"on":1},"goals":{"total":0,"conceded":0,"assists":0},"passes":{"total":149,"accuracy":69},"tackles":{"total":8,"blocks":0,"interceptions":7},"duels":{"total":39,"won":22},"dribbles":{"attempts":3,"success":1},"fouls":{"drawn":4,"committed":3},"cards":{"yellow":0,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":6,"minutes_played":443,"lineups":5},"substitutes":{"in":1,"out":1,"bench":11}},{"player_id":888,"player_name":"P. Jones","team_id":33,"team_name":"Manchester United","number":4,"age":27,"position":"D","injured":"False","rating":"7.056250","captain":0,"shots":{"total":5,"on":2},"goals":{"total":0,"conceded":0,"assists":1},"passes":{"total":677,"accuracy":87},"tackles":{"total":13,"blocks":10,"interceptions":22},"duels":{"total":107,"won":76},"dribbles":{"attempts":3,"success":3},"fouls":{"drawn":10,"committed":8},"cards":{"yellow":1,"yellowred":0,"red":0},"penalty":{"success":0,"missed":0,"saved":0},"games":{"appearences":17,"minutes_played":1217,"lineups":14},"substitutes":{"in":3,"out":2,"bench":7}}]
+var apiFootballKey;
 
 function newLeagueSelected(event){ //when a new league is selected
-    //console.log(event.target.value);
     if(event.target.selectedIndex != 0){ //If it isn't the title card
         selectedLeagueIndex = event.target.selectedIndex - 1; //get the position in the Leagues database
         populateTeams(); //populate teams
-        populateYouTube(event.target[event.target.selectedIndex].text); //populate youtube
-        populateArticles(event.target[event.target.selectedIndex].text); //populate articles
+        populateAdditional(event.target[event.target.selectedIndex].text);
     }
 }
 
 function newTeamSelected(event){ //when a new team is selected
-    //console.log(event.target.value);
     if(event.target.selectedIndex != 0){ //if it isn't the title card
         selectedTeamIndex = event.target.selectedIndex - 1; //get the position in the array in the Leagues database
-        selectedTeamID = event.target[event.target.selectedIndex].value;
+        selectedTeamID = event.target.value;
         populatePlayers(); //populate players
-        populateYouTube(event.target[event.target.selectedIndex].text);
-        populateArticles(event.target[event.target.selectedIndex].text);
+        populateAdditional(event.target[event.target.selectedIndex].text);
     }
 }
 
 function newPlayerSelected(event){ //when a new player is selected
-    //console.log(event.target.value);
     if(event.target.selectedIndex != 0){ //if it isn't the title card
         selectedPlayerIndex = event.target.selectedIndex - 1; //get the position in the returnedAPIFootballContent array;
         populateInfo(); //populate player info
-        populateYouTube(event.target[event.target.selectedIndex].text);
-        populateArticles(event.target[event.target.selectedIndex].text);
+        populateAdditional(event.target[event.target.selectedIndex].text);
     }
+}
+
+function populateAdditional(searchTerm){
+    populateYouTube(searchTerm); //populate youtube
+    populateArticles(searchTerm); //populate articles
 }
 
  function populateYouTube(searchTerm) { //populate the slider with youtube videos
@@ -58,7 +58,6 @@ function newPlayerSelected(event){ //when a new player is selected
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        //console.log(response);
         var sliderShow = $("<ul>"); //create youtube catalog
         sliderShow.attr("class", "slides");
         for(let i=0; i<response.items.length; i++){ //for all response items
@@ -66,13 +65,10 @@ function newPlayerSelected(event){ //when a new player is selected
             var newDiv = $("<div class='video-container'>"); //make a container
             var newIFrame = $("<iFrame frameborder='0' allowfullscreen>") //make an iFrame
             newIFrame.attr("src", "https://www.youtube.com/embed/"+response.items[i].id.videoId); //and set it to the youtubelink
-            //console.log(response.items[i].id.videoId);
-            //console.log(newIFrame.attr("src"));
             newDiv.append(newIFrame); //append items in order to body
             newItem.append(newDiv);
             sliderShow.append(newItem);
         }
-        console.log($(".video-container"));
         $(".slider").append(sliderShow); //append the youtube catalog to slider
         $('.slider').slider({interval:600000}); //set slider to rotate after 10 minutes
     })
@@ -80,15 +76,13 @@ function newPlayerSelected(event){ //when a new player is selected
 
 function populateArticles(searchTerm) { //Populate the Newsfeed with articles
     $("#articleContentDiv").empty();
-    //console.log(searchTerm)
-    var googleURL= "https://newsapi.org/v2/everything?q="+ searchTerm + "&apiKey=fb3aa28457e54aeb86cd1dc81bc99f6f"
-        //console.log(googleURL)
+    var apiKey = "fb3aa28457e54aeb86cd1dc81bc99f6f";
+    var googleURL= "https://newsapi.org/v2/everything?q="+ searchTerm + "&apiKey=" + apiKey;
     
     $.ajax({
         url: googleURL,
         method: "GET"
     }).then(function(response) {
-        //console.log(response)
         for (let i = 0; i <response.articles.length && i<10;i++){ //for the number of articles returned to a maximum of 10
             var articleContent = $("<p>"); //create an article
             var a = $('<a>'); //create a link header
@@ -104,7 +98,6 @@ function populateArticles(searchTerm) { //Populate the Newsfeed with articles
 
 function newSearch(){ //Create a start point for searching our database
     $("#sideContent").empty();//empty #sideContent
-    
     var newSelect = $("<select>");//create select
 
     var blankOption = $("<option>");
@@ -134,7 +127,6 @@ function newSearch(){ //Create a start point for searching our database
 }
 
 function populateTeams(){ //Create new select for teams in given league
-    //console.log("Populate Teams Reached");
     $("#teamSelectDiv").empty();//empty #teamSelect, #playerSelect, #playerInfo
     $("#playerSelectDiv").empty();
     $("#playerInfoDiv").empty();
@@ -145,7 +137,6 @@ function populateTeams(){ //Create new select for teams in given league
     newSelect.append(blankOption);
 
     database.ref().on("value", function(snapshot){
-        //console.log(snapshot.val().Leagues[selectedLeagueIndex].teamIDs);
         $("#teamSelectDiv").append("There are: " + snapshot.val().Leagues[selectedLeagueIndex].teamIDs.length + " teams in this league!");
         for(let i=0; i<snapshot.val().Leagues[selectedLeagueIndex].teamIDs.length; i++){ //make for loop to pull information from Teams database
             var teamsIndex = 0; //Set the position of the starting query in the Teams database to start
@@ -169,7 +160,6 @@ function populateTeams(){ //Create new select for teams in given league
 }
 
 function populatePlayers(){
-    //console.log("Populate Players Reached")
     $("#playerSelectDiv").empty(); //empty #playerSelect, #playerInfo
     $("#playerInfoDiv").empty();
     var newSelect = $("<select>");//create select
@@ -177,9 +167,11 @@ function populatePlayers(){
     var blankOption = $("<option>");
     blankOption.text("--Choose a Player--"); //title card for Players
     newSelect.append(blankOption);
-    var key = ""; //AJAX API-Football and catch response in returnedAPIFootballContent
+    if(apiFootballKey == undefined){
+        apiFootballKey = ""; //AJAX API-Football and catch response in returnedAPIFootballContent
+    }
     $.ajax({ // API call to get the team members of a team. Takes team ID as parameter
-        headers: { 'X-RapidAPI-Key': key }, 
+        headers: { 'X-RapidAPI-Key': apiFootballKey }, 
         type: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v2/players/team/' + selectedTeamID, // GET /v2/players/team/{team_id}
         dataType: 'json',
@@ -191,20 +183,17 @@ function populatePlayers(){
                 newOption.text(returnedAPIFootballContent[i].player_name);//assign new option name
                 newOption.attr("value", returnedAPIFootballContent[i].player_id);//assign new option value with (player id or index location?)
                 newSelect.append(newOption);//append option to select
-                //console.log("I ran once");
             }
             newSelect.attr("id", "playerSelect"); //give select uniqueID (#playerSelect)
             newSelect.attr("class", "browser-default");
             $("#playerSelectDiv").append(newSelect);//append select to #playerSelectDiv
         }
     });
-    
 }
 
 function populateInfo(){ //Displays pertinent player information after player select runs
     $("#playerInfoDiv").empty(); //empty #playerInfo
     var player = returnedAPIFootballContent[selectedPlayerIndex]; //pull information from returnedAPIFootballContent
-    //console.log(player);
     //display information in #playerInfoDiv
     $("#playerInfoDiv").append("Age: " + player.age + "<br>");
     $("#playerInfoDiv").append("Position: " + player.position + "<br>");
@@ -227,13 +216,19 @@ function populateInfo(){ //Displays pertinent player information after player se
     $("#playerInfoDiv").append("Played " + player.games.minutes_played + " minutes in " + player.games.appearences + " Games" + "<br>");
 }
 
+function addKeyToPage(){ //applies the apiFootballKey to page
+    apiFootballKey = $("#apiFootballKeyInput").val();
+}
+
 $(function(){ //On ready document
     firebase.initializeApp(firebaseConfig); //initilize firebase
     database = firebase.database(); //instantiate database
     $('.sidenav').sidenav(); //apply sidenavs
     $('.materialboxed').materialbox(); //apply matrialboxes
+    $('.modal').modal(); //apply modal
     newSearch(); //create start screen
     $(document).on("change", "#leagueSelect", newLeagueSelected); //onchange of #leagueSelect: newLeagueSelected
     $(document).on("change", "#teamSelect", newTeamSelected); //onchange of #teamSelect: newTeamSelected
     $(document).on("change", "#playerSelect", newPlayerSelected); //onchange of #playerSelect: newPlayerSelected
+    $(document).on("click", ".addKey", addKeyToPage); //onclick of .addKey: addKeyToPage
 });
